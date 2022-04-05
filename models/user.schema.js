@@ -1,5 +1,5 @@
 const validator=require('validator');
-const mongoose=require("./conn")
+const mongoose=require("../database/conn")
 const userSchema=new mongoose.Schema({
     username:{
         type:String,
@@ -9,6 +9,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
+        validate: [ validator.isEmail, 'invalid email' ]
        
     },
     mob_no:{

@@ -2,11 +2,11 @@ require("dotenv").config();
 const express=require('express');
 const router=express.Router();
 const auth=require("../routes/auth")
-const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.controller");
-const { forgotpassword, varifyOtp, setPassword } = require("../controller/frontend/forgotPass");
-const { addcart, showCart,remove, updateQuantity, add_cart } = require("../controller/frontend/cart.controller");
-const { list, categorybyId } = require("../controller/frontend/category.controller");
-const { listOfProduct, by_productId, byCategoryId, /* DetailsbyId */ } = require("../controller/frontend/product.controller");
+const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.contro");
+const { forgotpassword, varifyOtp, setPassword } = require("../controller/frontend/forgotPass.contro");
+const { addcart, showCart,remove, updateQuantity, add_cart } = require("../controller/frontend/cart.contro");
+const { list, categorybyId } = require("../controller/frontend/category.contro");
+const { listOfProduct, by_productId, byCategoryId, /* DetailsbyId */ } = require("../controller/frontend/product.contro");
 
 
 // api for users
@@ -16,9 +16,9 @@ router.put("/update-user/:id",auth,updateUser)
 router.get("/logout",Signout)
 
 // api for password 
-router.post("/forgot-password",auth,forgotpassword)
-router.post("/varifyOtp",auth,varifyOtp)
-router.post("/resetPassword",auth,setPassword)
+router.post("/forgot-password",forgotpassword)
+router.post("/varifyOtp",varifyOtp)
+router.post("/resetPassword",setPassword)
 
 // api for category
 router.get("/allCategory",list)

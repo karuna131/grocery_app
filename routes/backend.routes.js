@@ -3,13 +3,13 @@ let router = express.Router();
 
 const upload = require('../middleware/upload')
 const auth = require('../routes/auth')
-const { userSignUp, userLogin } = require('../controller/Backend/user');
-const { create_categories, category_update, delete_category } = require('../controller/Backend/categories');
-const { create_products, Update_product, delete_products } = require('../controller/Backend/product');
-const { vendor_signup, vendor_login } = require('../controller/Backend/vendor');
-const { add_vandor, getVendor_data } = require('../controller/Backend/vendor_access');
+const { userSignUp, userLogin } = require('../controller/Backend/user.contro');
+const { create_categories, category_update, delete_category } = require('../controller/Backend/categories.contro');
+const { create_products, Update_product, delete_products } = require('../controller/Backend/product.contro');
+const { vendor_signup, vendor_login } = require('../controller/Backend/vendor.contro');
+const { add_vandor, getVendor_data } = require('../controller/Backend/vendor_access.contro');
 // const { loct } = require('../controller/Backend/location')
-const { order } = require('../controller/Backend/order');
+const { order } = require('../controller/Backend/order.contro');
 
 /* user APIs */
 router.post('/usersignup', userSignUp);

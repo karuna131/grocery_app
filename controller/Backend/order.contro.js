@@ -1,4 +1,4 @@
-const Order_ = require('../../database/order.schema');
+const Order_ = require('../../models/order.schema');
 
 
 const order = async(req,res)=>{

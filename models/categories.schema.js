@@ -1,4 +1,4 @@
-const mongoose = require('./conn');
+const mongoose = require('../database/conn');
 const category = new mongoose.Schema({
     name : {
         type : String,

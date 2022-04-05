@@ -1,4 +1,4 @@
-const category = require('../../database/categories.schema');
+const user=require('../../models/categories.schema');
 
 
 /* add category */

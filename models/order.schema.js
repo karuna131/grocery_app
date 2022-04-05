@@ -1,4 +1,4 @@
-const mongoose=require("./conn")
+const mongoose=require("../database/conn")
 const orderSchema=new mongoose.Schema({
     user: {
         type : mongoose.Schema.Types.ObjectId,

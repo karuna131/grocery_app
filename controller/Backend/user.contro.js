@@ -1,11 +1,12 @@
-const vendor = require('../../database/vendor.schema');
+const user=require('../../models/user.schema');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-/* vendor registration */
-const vendor_signup = async(req, res) =>{
-    if(!req.body.vendor_name || !req.body.email || !req.body.password || !req.body.current_address){
+
+/* user signup */
+const userSignUp = async(req, res)=>{
+    if(!req.body.username || !req.body.email || !req.body.password){
         res.send({
             status : false,
             status_code : 404,
@@ -14,20 +15,19 @@ const vendor_signup = async(req, res) =>{
     };
 
     const userDetails = {
-        vendor_name : req.body.vendor_name,
+        username : req.body.username,
         email : req.body.email,
-        password : bcrypt.hashSync(req.body.password, 12),
-        current_address : req.body.current_address
+        password : bcrypt.hashSync(req.body.password, 12) 
     }
     try{
-        const userExist = await vendor.findOne({email : req.body.email});
+        const userExist = await user.findOne({email : req.body.email});
         if(userExist){
             return res.status(412).json({
                 error : "EMAIL ALREADY EXIST"
             });
         }
         if(validator.isEmail(req.body.email)){
-            let data = await vendor.insertMany(userDetails);
+            let data = await user.insertMany(userDetails);
             if(data){
                 res.send({
                     status : true,
@@ -48,7 +48,7 @@ const vendor_signup = async(req, res) =>{
         res.send({
             status : false,
             status_code : 404,
-            message : "YOU CAN'T SIGNUP"
+            message : "USER CAN'T SIGNUP"
         });
         console.log(err);
     }
@@ -56,10 +56,8 @@ const vendor_signup = async(req, res) =>{
 
 
 
-
-
-/* vendor login */
-const vendor_login = async(req, res)=>{
+/* user login */
+const userLogin = async(req, res)=>{
     if(!req.body.email || !req.body.password){
         res.send({
             status : false,
@@ -68,9 +66,9 @@ const vendor_login = async(req, res)=>{
         });
     };
     try{
-        let login_data = await vendor.findOne({email : req.body.email});
-        if(login_data){
-            const isMatch = await bcrypt.compareSync(req.body.password, login_data.password);
+        let Userlogin_data = await user.findOne({email : req.body.email});
+        if(Userlogin_data){
+            const isMatch = await bcrypt.compareSync(req.body.password, Userlogin_data.password);
             
             if(!isMatch){
                 res.status(412).json({
@@ -78,12 +76,12 @@ const vendor_login = async(req, res)=>{
                     error : "INVALID PASSWORD"
                 });
             }else{
-                const token = jwt.sign({id : login_data._id}, process.env.SECRET_KEY, {expiresIn : "8h"});
+                const token = jwt.sign({id : Userlogin_data._id}, process.env.SECRET_KEY, {expiresIn : "8h"});
                 res.cookie("Token", token);
                 res.status(200).json({
                     status: true,
                     message : "USER LOGIN SUCCESSFULLY",
-                    Data : login_data
+                    Data : Userlogin_data
                 })
             }
         }else{
@@ -97,14 +95,11 @@ const vendor_login = async(req, res)=>{
         res.send({
             status : false,
             status_code : 404,
-            message : "USER NOT FOUND"
+            message : "Server side error while user try to login "
         });
         console.log(err);
     }
 }
 
 
-
-
-
-module.exports = {vendor_signup, vendor_login};
+module.exports = {userSignUp, userLogin};
