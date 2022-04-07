@@ -1,4 +1,4 @@
-const access = require('../../database/vendor_access.schema');
+const access = require('../../models/vendor_access.schema');
 
 /* add vendor */
 const add_vandor = async(req, res)=>{

@@ -9,7 +9,7 @@ const { create_products, Update_product, delete_products } = require('../control
 const { vendor_signup, vendor_login } = require('../controller/Backend/vendor');
 const { add_vandor, getVendor_data } = require('../controller/Backend/vendor_access');
 // const { loct } = require('../controller/Backend/location')
-const { order } = require('../controller/Backend/order');
+const {add_order, get_orderdDetails, get_order } = require('../controller/Backend/order');
 
 /* user APIs */
 router.post('/usersignup', userSignUp);
@@ -39,6 +39,8 @@ router.post('/product-delete/:id', delete_products)
 
 
 // order
-router.post('/order-details',auth,  order)
+router.post('/order-id',auth,  add_order)
+router.get('/order-details', auth, get_orderdDetails)
+router.get('/order',auth, get_order)
 
 module.exports = router;

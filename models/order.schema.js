@@ -1,36 +1,31 @@
-const mongoose=require("./conn")
+const mongoose=require("../database/connection")
 const orderSchema=new mongoose.Schema({
-    user: {
+    user_id : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'users'
     },
-    product: {
+    product_id: {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'product'
     },
-    product_id : {
-        type : String
-        // required : true
+    cart : {
+       type : mongoose.Schema.Types.ObjectId,
+       ref : "cart" 
     },
     quantity : {
         typr : Number
-        // required : true
     },
     product_discount : {
         type : Number
-        // required : true
     },
-    Delivery_charges : {
+    delivery_charges : {
         type : Number
-        // required : true
     },
-    Total_amount:{
+    total_amount:{
         type:String
-        // required:true,
     },
-    Deliver_to : {
+    deliver_to : {
         type : String
-        // required : true
     },
     status: {
         type: String,

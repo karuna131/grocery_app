@@ -1,5 +1,5 @@
 require('dotenv').config();
-const user = require("../../database/user.schema");
+const user = require("../../models/user.schema");
 const bcrypt = require('bcrypt')
 const { sign } = require('jsonwebtoken')
 const validator = require('validator');
@@ -108,7 +108,7 @@ const login = async (req, res) => {
         res.send({
             status : false,
             status_code : 404,
-            message : "Server side error while user try to login "
+            message : "User is not valid "
         });
         console.log(err);
     }

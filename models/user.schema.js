@@ -1,5 +1,5 @@
 const validator=require('validator');
-const mongoose=require("./conn")
+const mongoose=require("../database/connection")
 const userSchema=new mongoose.Schema({
     username:{
         type:String,

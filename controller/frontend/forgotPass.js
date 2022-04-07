@@ -1,5 +1,5 @@
 require('dotenv').config();
-const user = require("../../database/user.schema");
+const user = require("../../models/user.schema");
 const bcrypt=require('bcrypt')
 
 // for forgot password

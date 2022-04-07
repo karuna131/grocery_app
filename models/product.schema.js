@@ -1,4 +1,4 @@
-const mongoose = require('./conn');
+const mongoose = require('../database/connection');
 const products = new mongoose.Schema({
     category_id :{
         type : mongoose.Schema.Types.ObjectId,

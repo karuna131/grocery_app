@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../database/connection');
 const vendor_details = new mongoose.Schema({
     vendor_name : {
         type : String

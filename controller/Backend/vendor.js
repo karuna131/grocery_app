@@ -1,4 +1,4 @@
-const vendor = require('../../database/vendor.schema');
+const vendor = require('../../models/vendor.schema');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');

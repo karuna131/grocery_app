@@ -1,4 +1,4 @@
-const locationS = require('../../database/location.schema');
+const locationS = require('../../models/location.schema');
 
 const loct = async(req, res)=>{
     // const id = req.params.id

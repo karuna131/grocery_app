@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose")
-const product = require("../../database/product.schema")
+const product = require("../../models/product.schema")
 
 // show all product
 const listOfProduct = async (req, res) => {

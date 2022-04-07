@@ -1,22 +1,12 @@
-const mongoose=require("./conn")
+const mongoose=require("../database/connection")
 const shoppingSchema=new mongoose.Schema({
     user_id:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'users'
     },
-    // vendor_id:{
-    //     // type : mongoose.Schema.Types.ObjectId,
-    //     // ref : 'vendor'
-    //     type:Number,
-    //     required:true,
-    // },
-    product_id :{
+    product_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref : 'product'
-    },
-    attribute_name :{
-        type:String,
-        required:true
     },
     quantity: {
         type:Number,

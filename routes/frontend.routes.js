@@ -4,7 +4,7 @@ const router=express.Router();
 const auth=require("../routes/auth")
 const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.controller");
 const { forgotpassword, varifyOtp, setPassword } = require("../controller/frontend/forgotPass");
-const { addcart, showCart,remove, updateQuantity, add_cart } = require("../controller/frontend/cart.controller");
+const { addcart, showCart,remove, updateQuantity, add_cart} = require("../controller/frontend/cart.controller");
 const { list, categorybyId } = require("../controller/frontend/category.controller");
 const { listOfProduct, by_productId, byCategoryId, /* DetailsbyId */ } = require("../controller/frontend/product.controller");
 
@@ -37,7 +37,6 @@ router.get("/showCart",showCart)
 router.post('/remove-item',remove)
 router.put("/update-quantity",updateQuantity)
 
-router.post('/add_cart', add_cart)
-
+router.post('/product-addtocart', add_cart)
 
 module.exports=router

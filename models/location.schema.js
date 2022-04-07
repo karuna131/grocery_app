@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../database/connection');
 const geocoder = require('../untils/geocoder')
 
 // const pointSchema = new mongoose.Schema({
