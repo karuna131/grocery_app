@@ -151,11 +151,6 @@ const get_order = async(req, res)=>{
             }
             if(data){
                 console.log(data);
-                // for(i of data){
-                //     console.log(i);
-                //     // console.log(i.user_id.username)
-                //     res.send(i.user_id.username)
-                // }
             }
         })
     }
