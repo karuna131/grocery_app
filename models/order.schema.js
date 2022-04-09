@@ -12,6 +12,10 @@ const orderSchema=new mongoose.Schema({
        type : mongoose.Schema.Types.ObjectId,
        ref : "cart" 
     },
+    shipping_id : {
+        type : String,
+        required : true
+    },
     quantity : {
         typr : Number
     },

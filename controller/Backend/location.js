@@ -1,30 +1,47 @@
 const locationS = require('../../models/location.schema');
 
-const loct = async(req, res)=>{
-    // const id = req.params.id
+const loc = async(req, res)=>{
+    const vendor_id = req.body.vendor_store 
     try{
-    const store = await locationS.create(req.body);
-    // await locationS.find({vendor_id : id})
-    // .select('vendor_id _id')
-    // .populate("vendor_id", "current_address")
-    // .exec()
-    // .then(data =>{
-    console.log(store);
-    return res.send({
-        status : true,
-        status_code : 200,
-        data : data
-    })
-    // })
+        const d = await locationS.find(vendor_id)
+        locationS.aggregate([
+            {
+                $geoNear: {
+                    near: { type: "Point", coordinates: [req.body.lon, req.body.lat] },
+                    distanceField: "dist.calculated",
+                    // maxDistance: 10000,
+                    query: { "isEnabled": true }
+                }
+            }
+        ])
+        .then((data)=>{
+            console.log(data);
+            res.send('user/home',{
+              vendor_list:data
+            });
+        }).catch((err)=>{
+            console.log(err, 'wrong');
+            res.send(err);
+        })
     }
     catch(err){
-        console.log(err);
-        res.send({
-            status : false,
-            status_code:400,
-            error : 'vendor not found'
-        })
+        console.log(err)
+        res.send(err);
     }
 }
 
-module.exports = {loct};
+
+// locationS.statics.getNearby = function (longitude, latitude, minDistance, maxDistance, callback) {
+
+//     if ((longitude || latitude) === undefined) return new ModelError("location or radius is missing");
+    
+//     var Places = this;
+//     var point = { type: "Point", coordinates: [ longitude, latitude]};
+//     Places.geoNear(point, { minDistance: parseFloat(minDistance), maxDistance : maxDistance},
+//         function(err, activities, stats) {
+//             if (err)  return callback(err);
+//             callback(null, activities);
+//     });
+
+
+module.exports = {loc};

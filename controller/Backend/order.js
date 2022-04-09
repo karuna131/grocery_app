@@ -45,8 +45,11 @@ const Order_ = require('../../models/order.schema');
 // }
 
 
+
+
+// for adding a product into cart we need to take cart_id AND shipping_id
 const add_order  = async(req, res)=>{
-    const da = await cart.find({})
+    const da = await cart.find()
     .populate('product_id')
     .exec(function (err, result) {
         if(err){
@@ -54,11 +57,13 @@ const add_order  = async(req, res)=>{
             res.send(err)
         }
         if(result){
+            console.log(result);
             for(i of result){
                 if(i.user_id == res.tokendata.id){
                     const in_data = {
                         user_id : res.tokendata.id,
                         product_id : i.product_id.id,
+                        shipping_id :  req.body.shipping_id,
                         total_amount : i.quantity * i.product_id.sell_price
                     }
                     Order_.insertMany(in_data)
@@ -140,7 +145,7 @@ const get_orderdDetails = async(req, res)=>{
 
 
 
-const get_order = async(req, res)=>{
+const getOrder = async(req, res)=>{
     try{
         const ord_details =await Order_.find({})
         .populate('user_id')
@@ -150,7 +155,16 @@ const get_order = async(req, res)=>{
                 res.send(err);
             }
             if(data){
-                console.log(data);
+                for(i of data){
+                    res.status(200).send({
+                        "order_id" : i.id,
+                        "user_name" : i.user_id.username,
+                        "total_amount" : i.total_amount,
+                        "shipped_on" : i.shipping_id,
+                        "status" : i.status,
+                        "created_on" : i.createdAt
+                    })
+                }  
             }
         })
     }
@@ -163,10 +177,41 @@ const get_order = async(req, res)=>{
 
 
 
+// get details by order id
+const getOrder_shortDetails = async(req, res)=>{
+    const where = ({_id : req.query.id})
+    try{
+        const ord_details =await Order_.find(where)
+        .populate('user_id')
+        .exec(function (err, data) {
+            if(err){
+                console.log(err);
+                res.send(err);
+            }
+            if(data){
+                for(i of data){
+                    res.status(200).send({
+                        "order_id" : i.id,
+                        "user_name" : i.user_id.username,
+                        "total_amount" : i.total_amount,
+                        "shipped_on" : i.shipping_id,
+                        "status" : i.status,
+                        "created_on" : i.createdAt
+                    })
+                }  
+            }
+        })
+    }
+    catch(err){
+        console.log(err);
+        res.send(err)
+    }
+}
 
 
 
-module.exports = { add_order, get_orderdDetails, get_order};
+
+module.exports = { add_order, get_orderdDetails, getOrder, getOrder_shortDetails};
 
 
 

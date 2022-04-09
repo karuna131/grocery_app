@@ -8,8 +8,8 @@ const { create_categories, category_update, delete_category } = require('../cont
 const { create_products, Update_product, delete_products } = require('../controller/Backend/product');
 const { vendor_signup, vendor_login } = require('../controller/Backend/vendor');
 const { add_vandor, getVendor_data } = require('../controller/Backend/vendor_access');
-// const { loct } = require('../controller/Backend/location')
-const {add_order, get_orderdDetails, get_order } = require('../controller/Backend/order');
+const { loc } = require('../controller/Backend/location')
+const {add_order, get_orderdDetails, getOrder, getOrder_shortDetails } = require('../controller/Backend/order');
 
 /* user APIs */
 router.post('/usersignup', userSignUp);
@@ -35,12 +35,13 @@ router.put('/product-edit/:id', upload, Update_product)
 router.post('/product-delete/:id', delete_products)
 
 // location
-// router.post('/location', loct)
+router.post('/location', loc)
 
 
 // order
 router.post('/order-id',auth,  add_order)
 router.get('/order-details', auth, get_orderdDetails)
-router.get('/order',auth, get_order)
+router.get('/order-get',auth, getOrder);
+router.get('/short-orderdetails', auth, getOrder_shortDetails)
 
 module.exports = router;
