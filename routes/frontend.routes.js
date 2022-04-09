@@ -2,12 +2,16 @@ require("dotenv").config();
 const express=require('express');
 const router=express.Router();
 const auth=require("../routes/auth")
+const vendorAuth=require("../routes/vendore.auth")
 const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.contro");
 const { forgotpassword, varifyOtp, setPassword } = require("../controller/frontend/forgotPass.contro");
 const {  showCart,remove, updateQuantity, add_cart } = require("../controller/frontend/cart.contro");
 const { list, categorybyId, cat_byPro_Id } = require("../controller/frontend/category.contro");
 const { listOfProduct, by_productId, byCategoryId, /* DetailsbyId */ } = require("../controller/frontend/product.contro");
 const {  shippingAdd, updateAddress } = require("../controller/frontend/shipping_contro");
+const {add_order, get_orderdDetails, getOrder, getOrder_shortDetails } = require('../controller/frontend/order');
+const { showVendor } = require("../controller/frontend/vendor_product.contro");
+const { addProduct } = require("../controller/Backend/vendor");
 
 
 // api for users
@@ -35,12 +39,24 @@ router.post("/product/by-categoryId",byCategoryId)
 
 // api for cart
 router.post('/add_cart', add_cart)
-router.get("/showCart/:id",showCart)
+router.get("/showCart",showCart)
 router.post('/remove-item',remove)
 router.put("/update-quantity",updateQuantity)
 
 // api for shipping
 router.post("/add-shipping-Address",auth,shippingAdd)
 router.put("/update-shipping-Address",auth,updateAddress)
+
+// order
+router.post('/order-id',auth,  add_order)
+router.get('/order-details', auth, get_orderdDetails)
+router.get('/order-get',auth, getOrder);
+router.get('/short-orderdetails', auth, getOrder_shortDetails)
+
+// vendor product
+router.get("/allVendore",vendorAuth,showVendor)
+router.post('/addProduct',vendorAuth,addProduct)
+
+
 
 module.exports=router

@@ -9,6 +9,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
+        validate: [ validator.isEmail, 'invalid email' ]
        
     },
     mob_no:{

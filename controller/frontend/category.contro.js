@@ -40,7 +40,7 @@ const cat_byPro_Id = async (req, res) => {
         if (data.status = 'active') {
             res.status(201).send(Res(data))
         }else {
-            res.status(201).send(Res(data, "Not Available "))
+            res.status(201).send(Res( "Not Available "))
         }
     } catch (err) {
         res.send(Err(err.message))

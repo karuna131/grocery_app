@@ -3,7 +3,7 @@ const product = require('../../models/product.schema');
 /* add product */
 const create_products = async(req, res)=>{
     /* error handle if any field missed while adding */
-    if(!req.body.vendor_id || !req.body.category_id || !req.body.product_name || !req.body.description || !req.body.regular_price || !req.body.sell_price || !req.body.attribute || !res.filepath){
+    if(/*!req.body.vendor_id ||*/ !req.body.category_id || !req.body.product_name || !req.body.description || !req.body.regular_price || !req.body.sell_price || !req.body.attribute || !res.filepath){
         res.send({
             status : false,
             status_code : 401,
@@ -11,7 +11,7 @@ const create_products = async(req, res)=>{
         })
     }
     const data = {
-        vendor_id : req.body.vendor_id,
+        // vendor_id : req.body.vendor_id,
         category_id : req.body.category_id,
         product_name : req.body.product_name,
         description : req.body.description,

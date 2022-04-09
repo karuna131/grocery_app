@@ -13,7 +13,7 @@ const add_cart = async (req, res) => {
 // show all item of cart
 const showCart = async (req, res) => {
     try {
-        const data = await cart.find({ user_id: req.params.id })
+        const data = await cart.find({ user_id: req.query.id })
             .populate('product_id', '-__v -createdAt -updatedAt')
             .exec((err, data) => {
                 for (i = 0; i < data.length; i++) {
