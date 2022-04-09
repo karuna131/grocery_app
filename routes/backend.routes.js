@@ -9,6 +9,8 @@ const { create_products, Update_product, delete_products } = require('../control
 const { vendor_signup, vendor_login } = require('../controller/Backend/vendor');
 const { add_vandor, getVendor_data } = require('../controller/Backend/vendor_access');
 const { loc } = require('../controller/Backend/location')
+const {add_order, get_orderdDetails, getOrder, getOrder_shortDetails } = require('../controller/Backend/order');
+
 
 
 /* user APIs */
@@ -36,6 +38,12 @@ router.post('/product-delete/:id', delete_products)
 
 // location
 router.post('/location', loc)
+
+// order
+router.post('/order-id',auth,  add_order)
+router.get('/order-details', auth, get_orderdDetails)
+router.get('/order-get',auth, getOrder);
+router.get('/short-orderdetails', auth, getOrder_shortDetails)
 
 
 

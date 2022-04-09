@@ -3,46 +3,6 @@ const Order_ = require('../../models/order.schema');
 
 
 
-// const order = async(req, res)=>{
-//     const m = await cart.aggregate([
-//         {
-//             $lookup : {
-//                 from : 'product',
-//                 localField : 'product_id',
-//                 foreignField : 'product_id',
-//                 as : 'product_details'
-//             }
-//         },
-//         {
-//             $unwind : "$product_details"
-//         },
-//         {
-//             $project : {
-//                 user_id : 1,
-//                 quantity : 1,
-//                 product_name : "$product_details.product_name",
-//                 description : "$product_details.description",
-//                 category_id : "$product_details.category_id",
-//                 vendor_id : "$product_details.vendor_id",
-//                 price : "$product_details.sell_price",
-//                 image : "$product_details.image",
-//             }
-//         }
-//     ]).exec(function(err, result) {
-//         if(err){
-//             console.log(err);
-//             res.send(err);
-//         }
-//         // for(var i of result){
-//         //     console.log(result);
-//         //     res.send(result)
-//         // }
-//         if(result){
-//             console.log(result);
-//             res.send(result)
-//         }
-//     })
-// }
 
 
 
