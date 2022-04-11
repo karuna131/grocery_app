@@ -1,6 +1,5 @@
 require("dotenv").config();
-const express=require('express');
-const router=express.Router();
+const router=require('express').Router();
 const auth=require("../routes/auth")
 const vendorAuth=require("../routes/vendore.auth")
 const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.contro");
@@ -11,6 +10,8 @@ const { listOfProduct, by_productId, byCategoryId, /* DetailsbyId */ } = require
 const {  shippingAdd, updateAddress } = require("../controller/frontend/shipping_contro");
 const { showVendor } = require("../controller/frontend/vendor_product.contro");
 const { addProduct } = require("../controller/Backend/vendor");
+const { checkout } = require("../controller/Backend/order");
+const { addDetails, edit } = require("../controller/frontend/bank.contro");
 
 
 // api for users
@@ -52,6 +53,11 @@ router.put("/update-shipping-Address",auth,updateAddress)
 router.get("/allVendore",vendorAuth,showVendor)
 router.post('/addProduct',vendorAuth,addProduct)
 
+router.get("/checkout",auth,checkout)
+
+// bank details
+router.post("/add-bank-details",auth,addDetails)
+router.put("/edit-details",auth,edit)
 
 
 module.exports=router

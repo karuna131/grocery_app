@@ -1,5 +1,4 @@
-const express = require('express');
-let router = express.Router();
+const router= require('express').Router();
 
 const upload = require('../middleware/upload')
 const auth = require('../routes/auth')

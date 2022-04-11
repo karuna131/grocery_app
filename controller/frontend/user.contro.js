@@ -25,27 +25,23 @@ const login = async (req, res) => {
         return res.send(Mess())
     } try {
         const data = await user.findOne({ email: req.body.email })
-        if (data) {
-            const pass = await bcrypt.compareSync(req.body.password, data.password)
-            if (!pass) {
-                res.status(403).send(innc("incorrect password"))
-            } else {
-                const token = sign({ id: data._id }, process.env.secret_key, { expiresIn: "6h" })
-                res.cookie("user", token)
-                res.status(200).send(Res(data, "successfully login"));
-            }
-        } else {
-            res.status(403).send(innc("incorrect email"))
-        }
+        !data && res.status(401).json(innc("incorrect email"))
+        const pass = bcrypt.compareSync(req.body.password, data.password)
+        pass != true && res.status(401).json(innc("incorrect password"))
+        const token = sign({ id: data._id }, process.env.secret_key, { expiresIn: "6h" })
+        res.cookie("user", token)
+        // const { pass1, ...others }=data._doc
+        res.status(201).json(Res(data, "successfully login"));
+        // res.send(others)
     } catch (err) {
-        res.status(404).send(Err(err.message))
+        res.status(500).send(Err(err.message))
     }
 }
 
 // update user detail
 const updateUser = async (req, res) => {
     salt = bcrypt.genSaltSync(10);
-    const where ={_id: res.tokendata.id}
+    const where = { _id: res.tokendata.id }
     let user_1 = { username: req.body.username, email: req.body.email, mob_no: req.body.mob_no, password: bcrypt.hashSync(req.body.password, salt) /*,country:req.body.country,address:req.body.address*/ }
     try {
         const d = await user.find(where)
@@ -62,7 +58,7 @@ const updateUser = async (req, res) => {
 const Signout = async (req, res) => {
     try {
         res.clearCookie("user")
-        res.status(200).send(Res({},"logout successfully"))
+        res.status(200).send(Res({}, "logout successfully"))
     } catch (err) {
         res.status(404).send(Err(err.message))
     }

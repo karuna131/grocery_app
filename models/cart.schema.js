@@ -10,6 +10,7 @@ const shoppingSchema=new mongoose.Schema({
     },
     quantity: {
         type:Number,
+        default:1,
         required:true
     }
 },{
@@ -18,3 +19,5 @@ const shoppingSchema=new mongoose.Schema({
 
 const shopping=mongoose.model("cart",shoppingSchema,"cart")
 module.exports=shopping
+
+

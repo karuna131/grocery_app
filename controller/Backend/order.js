@@ -78,7 +78,7 @@ const get_orderdDetails = async(req, res)=>{
                     "user_id" : data.user_id,
                     "product_id" : product._id,
                     "category_id" : product.category_id,
-                    "vendore_id" : product.vendore_id,
+                    "vendor_id" : product.vendor_id,
                     "image" : product.image,
                     "product_name" : product.product_name,
                     "description" : product.description,
@@ -168,10 +168,28 @@ const getOrder_shortDetails = async(req, res)=>{
     }
 }
 
+const checkout=async(req,res)=>{
+    try{
+    //     console.log(res.tokendata.id);
+        data=await Order_.find({user_id:res.tokendata.id})
+        .populate("product_id")
+        .exec(function(err,data){
+            console.log(data);
+            data.forEach(element => {
+            res.send({'total_amount':element.total_amount})
+
+            });
+          
+        })
+    }catch(err){
+        res.send(err)
+
+    }
+    
+}
 
 
-
-module.exports = { add_order, get_orderdDetails, getOrder, getOrder_shortDetails};
+module.exports = { add_order, get_orderdDetails, getOrder, getOrder_shortDetails,checkout};
 
 
 

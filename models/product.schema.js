@@ -4,10 +4,10 @@ const products = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "categories"
     },
-    // vendor_id :{
-    //     type : mongoose.Schema.Types.ObjectId,
-    //     ref : "vendor"
-    // },
+    vendor_id :{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "vendor"
+    },
     product_name : {
         type : String,
         required : true

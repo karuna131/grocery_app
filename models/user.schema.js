@@ -40,6 +40,11 @@ const userSchema=new mongoose.Schema({
     },
     address:{
         type:String,
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+
     }
     }
     ,{
@@ -47,5 +52,5 @@ const userSchema=new mongoose.Schema({
     
 )
 
-const user=mongoose.model("users",userSchema)
-module.exports=user
+
+module.exports=mongoose.model("users",userSchema)

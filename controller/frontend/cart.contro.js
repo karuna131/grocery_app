@@ -4,7 +4,7 @@ const add_cart = async (req, res) => {
     const d = { user_id: req.body.user_id, product_id: req.body.product_id, quantity: req.body.quantity }
     try {
         const data = await cart.insertMany(d)
-        res.send(Res(data))
+        return res.status(422).send(Res(data));
     }
     catch (err) {
         res.status(404).send(Err(err.message))
@@ -20,7 +20,7 @@ const showCart = async (req, res) => {
                     const subtotal = data[i].quantity * data[i].product_id.sell_price
                     data[i]["subtotal"] = subtotal
                 }
-                res.send(data)
+                return res.status(422).send(Res(data));
             })
     } catch (err) {
         res.status(404).send(Err(err.message))
@@ -32,14 +32,14 @@ const remove = async (req, res) => {
     try {
         const data = await cart.findByIdAndRemove({ _id: req.query.id })
         if (data) {
-            return res.status(422).send(Res("product removed"));
+            return res.status(422).send(Res(req.query.id ,"product removed"));
         }
         else {
-            return res.status(200).send(innc("Cart is Empty"));
-
+            return res.status(200).send(innc("product not in cart"))
         }
     } catch (err) {
         res.status(404).send(Err(err.message))
+        console.log(err);
     }
 }
 // update quantity
