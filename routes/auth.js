@@ -15,7 +15,7 @@ authentication=(req,res,next)=>{
             res.status(401).send(authen())
         }
         else{
-            res.tokendata=tokendata
+            req.tokendata=tokendata
             next()
         }
 
