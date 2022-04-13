@@ -13,17 +13,22 @@ const add_cart = async (req, res) => {
 // show all item of cart
 const showCart = async (req, res) => {
     try {
+        var subtotal=0
         const data = await cart.find({user_id:req.body.id})
         if(data){
             cart.find({})
             .populate('product_id', '-__v -createdAt -updatedAt')
             .exec((err, da) => {
                 for (i = 0; i < da.length; i++) {
-                    const subtotal = da[i].quantity * da[i].product_id.sell_price
-                    console.log(subtotal);
-                    data[i]["subtotal"] = subtotal
+                     subtotal += da[i].quantity * da[i].product_id.sell_price
                 }
-                return res.status(422).send(Res(da));
+                return res.status(422).send({
+                    status: true,
+                    status_code: 201,
+                    message: "all product",
+                    subtotal:subtotal,
+                    data: da
+                });
             })
         }
             
