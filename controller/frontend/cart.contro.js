@@ -4,7 +4,7 @@ const add_cart = async (req, res) => {
     const d = { user_id: req.body.user_id, product_id: req.body.product_id, quantity: req.body.quantity }
     try {
         const data = await cart.insertMany(d)
-        return res.status(422).send(Res(data));
+        return res.status(201).send(Res(data));
     }
     catch (err) {
         res.status(404).send(Err(err.message))
@@ -19,16 +19,8 @@ const showCart = async (req, res) => {
             cart.find({})
             .populate('product_id', '-__v -createdAt -updatedAt')
             .exec((err, da) => {
-                for (i = 0; i < da.length; i++) {
-                     subtotal += da[i].quantity * da[i].product_id.sell_price
-                }
-                return res.status(422).send({
-                    status: true,
-                    status_code: 201,
-                    message: "all product",
-                    subtotal:subtotal,
-                    data: da
-                });
+                return res.status(201).send(Res(da));
+            
             })
         }
             
