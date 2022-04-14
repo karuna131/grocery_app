@@ -2,7 +2,7 @@ require("dotenv").config();
 const router=require('express').Router();
 const auth=require("../routes/auth")
 const vendorAuth=require("../routes/vendore.auth")
-const {  signup, login, Signout, updateUser } = require("../controller/frontend/user.contro");
+const {  signup, login, Signout, updateUser, get_user } = require("../controller/frontend/user.contro");
 const { forgotpassword, varifyOtp, setPassword } = require("../controller/frontend/forgotPass.contro");
 const {  showCart,remove, updateQuantity, add_cart } = require("../controller/frontend/cart.contro");
 const { list, categorybyId, cat_byPro_Id } = require("../controller/frontend/category.contro");
@@ -19,6 +19,7 @@ router.post('/signup',signup)
 router.post('/login',login)
 router.put("/update-user",auth,updateUser)
 router.get("/logout",Signout)
+router.get('/getUser',auth,get_user)
 
 // api for password 
 router.post("/forgot-password",forgotpassword)

@@ -19,6 +19,17 @@ const signup = async (req, res) => {
     catch (err) { res.status(404).send(Err(err.message)) }
 }
 
+
+// get user
+const get_user=async(req,res)=>{
+    try{
+        const data= await user.find({_id:req.tokendata.id})
+        res.status(201).send(Res(data))
+    }catch(err){
+        res.status(404).send(Err(err.message))
+    }
+}
+
 // login
 const login = async (req, res) => {
     if (!req.body.email || !req.body.password) {
@@ -64,6 +75,6 @@ const Signout = async (req, res) => {
     }
 }
 
-module.exports = { signup, login, updateUser, Signout }
+module.exports = { signup, login, updateUser, Signout ,get_user}
 
 
